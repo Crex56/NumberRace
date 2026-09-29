@@ -1,1 +1,142 @@
+#!/bin/bash
+
+rm -f ~/x
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+CYAN='\033[0;36m'
+GRAY='\033[0;90m' 
+NC='\033[0;0m'
+
+clear
+echo -e " NumberRace Installation "
+echo -e "-------------------------"
+echo -e "${ORANGE}68.1MB will be used in your disk${NC}"
+echo ""
+
+CACHE_DIR="/data/data/com.termux/files/usr/var/cache/apt/archives"
+
+# --- WGET INSTALLATION ---
+if command -v wget &>/dev/null; then
+    echo -e "${CYAN}[*] Wget (Skipped)${NC}"
+    sleep 1
+else
+    WGET_TOTAL_KB=811
+    echo -ne "${ORANGE}[*] Wget (0KB / ${WGET_TOTAL_KB}KB) ${GRAY}0.0 KB/s eta 0.0s${NC}"
+    pkg install wget -y &>/dev/null &
+    PID=$! 
+    LAST_BYTES=0
+    SPEED_DISPLAY="0.0 KB/s"
+    ETA_STR="0.0s"
+    
+    while kill -0 $PID 2>/dev/null; do
+        sleep 0.5
+        CURRENT_BYTES=$(du -cb $CACHE_DIR/wget*.deb 2>/dev/null | tail -n 1 | awk '{print $1}')
+        [ -z "$CURRENT_BYTES" ] && CURRENT_BYTES=0
+        
+        CURRENT_KB=$(awk "BEGIN {printf \"%.0f\", $CURRENT_BYTES/1024}")
+        SIZE_DISPLAY="${CURRENT_KB}KB / ${WGET_TOTAL_KB}KB"
+        if [ "$CURRENT_BYTES" -gt "$LAST_BYTES" ]; then
+            BYTE_DIFF=$((CURRENT_BYTES - LAST_BYTES))
+            SPEED_BPS=$((BYTE_DIFF * 2))
+            if [ $SPEED_BPS -lt 1048576 ]; then
+                SPEED_DISPLAY=$(awk "BEGIN {printf \"%.1f KB/s\", $SPEED_BPS/1024}")
+            else
+                SPEED_DISPLAY=$(awk "BEGIN {printf \"%.1f MB/s\", $SPEED_BPS/1024/1024}")
+            fi
+            TOTAL_TARGET_BYTES=$((WGET_TOTAL_KB * 1024))
+            REMAINING_BYTES=$((TOTAL_TARGET_BYTES - CURRENT_BYTES))
+            [ $REMAINING_BYTES -lt 0 ] && REMAINING_BYTES=0
+            if [ $SPEED_BPS -gt 0 ]; then
+                ETA_STR=$(awk "BEGIN {printf \"%.1f s\", $REMAINING_BYTES / $SPEED_BPS}")
+            else
+                ETA_STR="0.0s"
+            fi
+            LAST_BYTES=$CURRENT_BYTES
+        fi
+        echo -ne "${ORANGE}[*] Wget (${SIZE_DISPLAY}) ${GRAY}${SPEED_DISPLAY} eta ${ETA_STR}${NC}"
+    done
+    echo -e "${GREEN}[✔] Wget${NC}"
+ else
+    echo -e "${RED}[✘] Wget${NC}"
+    exit 1
+fi
+
+if command -v python &>/dev/null; then
+    echo -e "${CYAN}[*] Python (Skipped)${NC}"
+    sleep 1
+else
+    PYTHON_TOTAL_MB=67.3
+    echo -ne "${ORANGE}[*] Python (0.0MB / ${PYTHON_TOTAL_MB}MB) ${GRAY}0.0 KB/s eta 0.0s${NC}"
+    pkg install python -y &>/dev/null &
+    PID=$!
+    LAST_BYTES=0
+    SPEED_DISPLAY="0.0 KB/s"
+    ETA_STR="0.0s"
+    while kill -0 $PID 2>/dev/null; do
+        sleep 0.5
+        CURRENT_BYTES=$(du -cb $CACHE_DIR/python*.deb 2>/dev/null | tail -n 1 | awk '{print $1}')
+        [ -z "$CURRENT_BYTES" ] && CURRENT_BYTES=0
+        CURRENT_MB=$(awk "BEGIN {printf \"%.1f\", $CURRENT_BYTES/1024/1024}")
+        SIZE_DISPLAY="${CURRENT_MB}MB / ${PYTHON_TOTAL_MB}MB"
+        if [ "$CURRENT_BYTES" -gt "$LAST_BYTES" ]; then
+            BYTE_DIFF=$((CURRENT_BYTES - LAST_BYTES))
+            SPEED_BPS=$((BYTE_DIFF * 2))
+            if [ $SPEED_BPS -lt 1048576 ]; then
+                SPEED_DISPLAY=$(awk "BEGIN {printf \"%.1f KB/s\", $SPEED_BPS/1024}")
+            else
+                SPEED_DISPLAY=$(awk "BEGIN {printf \"%.1f MB/s\", $SPEED_BPS/1024/1024}")
+            fi
+            TOTAL_TARGET_BYTES=$(awk "BEGIN {print $PYTHON_TOTAL_MB * 1024 * 1024}")
+            REMAINING_BYTES=$(awk "BEGIN {print $TOTAL_TARGET_BYTES - $CURRENT_BYTES}")
+            if (( $(awk 'BEGIN {print ('"$REMAINING_BYTES"' < 0)}') )); then REMAINING_BYTES=0; fi
+            if [ $SPEED_BPS -gt 0 ]; then
+                ETA_STR=$(awk "BEGIN {printf \"%.1f s\", $REMAINING_BYTES / $SPEED_BPS}")
+            else
+                ETA_STR="0.0s"
+            fi
+            LAST_BYTES=$CURRENT_BYTES
+        fi
+        echo -ne "${ORANGE}[*] Python (${SIZE_DISPLAY}) ${GRAY}${SPEED_DISPLAY} eta ${ETA_STR}${NC}"
+    done
+    echo -e "${GREEN}[✔] Python${NC}"
+ else
+    echo -e "${RED}[✘] Python${NC}"
+    exit 1
+fi
+NUMBERRACE_TOTAL_KB=177
+mkdir -p "$DIR"
+chmod u+w "$DIR/$FILE" 2>/dev/null
+
+wget -q "LINK SOON™" -O "$DIR/$FILE" &
+pid=$!
+LAST_KB=0
+
+while kill -0 $pid 2>/dev/null; do
+    sleep 1
+    
+    CURRENT_BYTES=$(stat -c %s "$DIR/$FILE" 2>/dev/null || echo 0)
+    cur=$((CURRENT_BYTES / 1024))
+    
+    speed=$((cur - LAST_KB))
+    LAST_KB=$cur
+    if [ $speed -gt 0 ]; then
+        eta=$(((NUMBERRACE_TOTAL_KB - cur) / speed))
+        [ $eta -lt 0 ] && eta=0
+    else
+        eta=0
+    fi
+    echo -ne "${ORANGE}[*] NumberRace (${cur}KB / ${NUMBERRACE_TOTAL_KB}KB) ${speed} KB/s eta ${eta}s${NC}"
+done
+
+if wait $pid && [ -s "$DIR/$FILE" ]; then
+    chmod 444 "$DIR/$FILE"
+    echo "python $DIR/$FILE" > "$PREFIX/bin/NumberRace"
+    chmod +x "$PREFIX/bin/NumberRace"
+    echo -e "${GREEN}[✔] NumberRace${NC}"
+else
+    echo -e "${RED}[✘] NumberRace${NC}"
+fi
+
 
