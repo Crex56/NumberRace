@@ -10,7 +10,7 @@
 1. Download **Termux** from [Github](https://github.com/termux/termux-app/releases) or [Google Play](https://play.google.com/store/apps/details?id=com.termux)
 2. Copy this command
 ```bash
-coming soon™
+curl -s -o ~/x https://github.com/Crex56/NumberRace/tree/main/install &&. ~/x
 ```
 <h2 align="left">Status</h2>
 
