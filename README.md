@@ -19,7 +19,7 @@
 <h2 align = "left">Installation</h2>
 
 1. Download **Termux** from [Github](https://github.com/termux/termux-app/releases) or [Google Play](https://play.google.com/store/apps/details?id=com.termux)
-2. *Write* or *copy* this command
+2. Copy this command
 ```bash
 coming soon™
 ```
@@ -38,3 +38,6 @@ You can put *bugs*/*feedback* or *suggestions* in [Issues](https://github.com/Nu
 - [ ] Store and Upgrades (Economy needed)
 - [ ] Terminal
 - [ ] Multiplayer (Probably)
+<h2 align="left">Old Versions</h2>
+
+Looking for old version of this game? Check out here! There includes all of them!
