@@ -17,7 +17,6 @@ echo ""
 
 CACHE_DIR="/data/data/com.termux/files/usr/var/cache/apt/archives"
 
-# --- WGET INSTALLATION ---
 if command -v wget &>/dev/null; then
     echo -e "${CYAN}[*] Wget (Skipped)${NC}"
     sleep 1
