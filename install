@@ -134,8 +134,10 @@ if wait $pid && [ -s "$DIR/$FILE" ]; then
     echo "python $DIR/$FILE" > "$PREFIX/bin/NumberRace"
     chmod +x "$PREFIX/bin/NumberRace"
     echo -e "${GREEN}[✔] NumberRace${NC}"
+    echo -e "${NC}To play - type ${GREEN}Number${ORANGE}Race${NC}"
 else
     echo -e "${RED}[✘] NumberRace${NC}"
+    exit 1
 fi
 
 
