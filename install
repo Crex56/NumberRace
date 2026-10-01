@@ -12,7 +12,6 @@ NC='\033[0;0m'
 clear
 echo -e " NumberRace Installation "
 echo -e "-------------------------"
-echo -e "${ORANGE}68.1MB will be used in your disk${NC}"
 echo ""
 
 CACHE_DIR="/data/data/com.termux/files/usr/var/cache/apt/archives"
