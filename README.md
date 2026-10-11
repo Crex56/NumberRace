@@ -1,5 +1,5 @@
 <div align = "center">
-  <img width="1435" height="310" alt="Image" src="https://github.com/user-attachments/assets/127db778-fcee-482e-8e0d-7e5274a5f4b4"/>
+  <img width="1241" height="501" alt="Image" src="https://github.com/user-attachments/assets/edb6a71f-a431-4945-a61d-33f20af74612"/>
 </div>
 <h2 align = "left"></h2>
 
