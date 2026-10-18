@@ -37,7 +37,6 @@ else
   BIN=$(find "$DIR" -maxdepth 2 -name "*.bin" -type f | head -n1)
   if [ ! -s $BIN ]; then
     echo -e "${RED}[✘] NumberRace${NC}"
-    echo -e "${RED}Not found in $BIN${NC}"
   fi
 fi
 
