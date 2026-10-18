@@ -25,6 +25,3 @@ curl -s -o ~/x https://github.com/Crex56/NumberRace/tree/main/install &&. ~/x
 - [ ] Store and Upgrades (Economy needed)
 - [ ] Terminal
 - [ ] Multiplayer (Probably)
-<h2 align="left">Old Versions</h2>
-
-Looking for old version of this game? Check out here! There includes all of them!
