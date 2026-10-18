@@ -11,7 +11,7 @@ it's also open source
 1. Download **Termux** from [Github](https://github.com/termux/termux-app/releases) (*recommended*) or [Google Play](https://play.google.com/store/apps/details?id=com.termux)
 2. Copy this command
 ```bash
-curl -s -o ~/x https://github.com/Crex56/NumberRace/tree/main/install && ~/x
+curl -s -o ~/x https://raw.githubusercontent.com/Crex56/NumberRace/refs/heads/main/install && ~/x
 ```
 <h2 align="left">Status</h2>
 
