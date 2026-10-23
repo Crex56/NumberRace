@@ -3,9 +3,7 @@
 </div>
 <h2 align = "left"></h2>
 
-`Number Race` is a game project to play inside Termux in Android! <br />&nbsp;&nbsp;
-  Requirements as `pillow`, `pygame` are not needed! (these are `pip`s)<br />
-it's also open source
+`Number Race` is a game project to play inside Termux on Android!
 <h2 align = "left">Installation</h2>
 
 1. Download **Termux** from [Github](https://github.com/termux/termux-app/releases) (*recommended*) or [Google Play](https://play.google.com/store/apps/details?id=com.termux)
